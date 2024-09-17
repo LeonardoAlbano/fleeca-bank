@@ -1,7 +1,10 @@
 package fleeca_bank;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Random;
+import java.util.Scanner;
 
 //Defining the class
 public class Account {
@@ -76,12 +79,32 @@ public class Account {
         }
     }
 
-    public boolean transfer( Account destination, double value ) {
-        if (out(value)) {
-            destination.deposit(value);
-            System.out.println("Transfer completed successfully !");
-            return true;
+
+    public boolean transfer(Account destination, double value) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Formatar o valor para o formato de moeda
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        String formattedValue = currencyFormatter.format(value);
+
+        // Mostrar mensagem de confirmação
+        System.out.println("You are about to transfer " + formattedValue + " to " + destination.getNameClient() + ".");
+        System.out.println("Do you want to proceed? (yes/no)");
+
+        String confirmation = scanner.nextLine().trim().toLowerCase();
+
+        // Verificar se o usuário confirmou
+        if (confirmation.equals("yes")) {
+            if (out(value)) {
+                destination.deposit(value);
+                System.out.println("Transfer completed successfully!");
+                return true;
+            } else {
+                System.out.println("Transfer failed: Insufficient funds.");
+                return false;
+            }
         } else {
+            System.out.println("Transfer cancelled.");
             return false;
         }
     }
@@ -97,7 +120,12 @@ public class Account {
     }
 
     public void extratcAccount() {
-        System.out.println("Balance Now: " + balance);
+
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        String formattedBalance = currencyFormatter.format(balance);
+
+        System.out.println("Current balance: " + formattedBalance);
+
     }
 
 }
