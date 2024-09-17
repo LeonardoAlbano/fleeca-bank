@@ -75,10 +75,10 @@ public class AccountApplication {
                                     break;
 
                                 case 2:
-                                    System.out.println("Enter the target account number:");
+                                    System.out.println("Enter the destination account number:");
                                     String numberAccountTarget = scanner.nextLine();
 
-                                    System.out.println("Enter the destination branch number:");
+                                    System.out.println("Enter the destination agency number:");
                                     String numberAgencyTarget = scanner.nextLine();
 
                                     Account accountTarget = null;
