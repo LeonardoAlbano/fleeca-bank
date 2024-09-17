@@ -83,17 +83,17 @@ public class Account {
     public boolean transfer(Account destination, double value) {
         Scanner scanner = new Scanner(System.in);
 
-        // Formatar o valor para o formato de moeda
+        //Format the value to currency format
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         String formattedValue = currencyFormatter.format(value);
 
-        // Mostrar mensagem de confirmação
+        // Show confirmation message
         System.out.println("You are about to transfer " + formattedValue + " to " + destination.getNameClient() + ".");
         System.out.println("Do you want to proceed? (yes/no)");
 
         String confirmation = scanner.nextLine().trim().toLowerCase();
 
-        // Verificar se o usuário confirmou
+        // Check if the user confirmed
         if (confirmation.equals("yes")) {
             if (out(value)) {
                 destination.deposit(value);
